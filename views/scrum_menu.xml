@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Radice “Scrum” nel menu principale di Odoo Project -->
+    <menuitem id="menu_scrum_main"
+              name="Scrum"
+              sequence="10"
+              parent="project.menu_main_pm"  />
+
+    <!-- Sezione Product Backlog -->
+    <menuitem id="menu_scrum_backlog"
+              name="Product Backlog"
+              parent="menu_scrum_main"
+              sequence="10"  />
+
+    <!-- Sezione Sprint -->
+    <menuitem id="menu_scrum_sprints"
+              name="Sprint"
+              parent="menu_scrum_main"
+              sequence="20"  />
+
+    <!-- Sezione Dashboard -->
+    <menuitem id="menu_scrum_reports"
+              name="Dashboard"
+              parent="menu_scrum_main"
+              sequence="30"  />
+
+    <!-- Azione: backlog (user-story senza sprint) -->
+    <record id="action_scrum_backlog" model="ir.actions.act_window">
+        <field name="name">Product Backlog</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scrum.user.story</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('sprint_id','=', False)]</field>
+        <!-- imposta il valore di default dello stato quando si crea -->
+        <field name="context">{'default_state': 'draft'}</field>
+        <field name="help" type="html">
+            Apri il backlog di prodotto per questo progetto.
+            Qui puoi creare, ordinare e stimare le User Story da inserire nei futuri sprint.
+        </field>
+    </record>
+
+    <menuitem id="menu_scrum_backlog_action"
+              name="User Stories"
+              parent="menu_scrum_backlog"
+              action="action_scrum_backlog"
+              sequence="11"  />
+
+    <!-- Azione: elenco / board Sprint -->
+    <record id="action_scrum_sprint" model="ir.actions.act_window">
+        <field name="name">Sprint</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scrum.sprint</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            Gestisci gli sprint pianificati e quelli in corso.
+            Clicca su uno sprint per vedere la board Kanban e il burndown.
+        </field>
+    </record>
+
+    <menuitem id="menu_scrum_sprint_action"
+              name="Sprint"
+              parent="menu_scrum_sprints"
+              action="action_scrum_sprint"
+              sequence="21"  />
+
+    <!-- Azione: dashboard Scrum -->
+    <record id="action_scrum_dashboard" model="ir.actions.act_window">
+        <field name="name">Scrum Dashboard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scrum.sprint</field>
+        <!-- usa la vista dashboard definita in scrum_dashboard_views.xml -->
+        <field name="view_mode">dashboard</field>
+        <field name="help" type="html">
+            Diagrammi di velocity, burndown e stato delle User Story per gli sprint selezionati.
+        </field>
+    </record>
+
+    <menuitem id="menu_scrum_dashboard_action"
+              name="Dashboard"
+              parent="menu_scrum_reports"
+              action="action_scrum_dashboard"
+              sequence="31"  />
+
+</odoo>

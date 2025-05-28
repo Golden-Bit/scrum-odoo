@@ -1,0 +1,26 @@
+<!-- file: project_scrum/views/scrum_sprint_views.xml -->
+<record id="view_scrum_sprint_kanban" model="ir.ui.view">
+    <field name="name">scrum.sprint.kanban</field>
+    <field name="model">scrum.sprint</field>
+    <field name="arch" type="xml">
+        <kanban>
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_card">
+                        <div>
+                            <strong><field name="name"/></strong>
+                        </div>
+                        <div>
+                            <span class="badge badge-secondary">
+                                Stories: <t t-esc="record.story_ids.raw_value and len(record.story_ids.raw_value) or 0"/>
+                            </span>
+                        </div>
+                        <div>
+                            Stato: <span t-esc="record.state.raw_value"/>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>

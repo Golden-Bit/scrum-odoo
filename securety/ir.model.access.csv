@@ -1,0 +1,9 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_scrum_sprint_owner","scrum.sprint PO","model_scrum_sprint","group_scrum_product_owner",1,0,1,0
+"access_scrum_sprint_master","scrum.sprint SM","model_scrum_sprint","group_scrum_scrum_master",1,1,1,1
+"access_scrum_sprint_dev","scrum.sprint Dev","model_scrum_sprint","group_scrum_developer",1,0,0,0
+"access_scrum_story_owner","scrum.user.story PO","model_scrum_user_story","group_scrum_product_owner",1,1,1,1
+"access_scrum_story_master","scrum.user.story SM","model_scrum_user_story","group_scrum_scrum_master",1,1,0,0
+"access_scrum_story_dev","scrum.user.story Dev","model_scrum_user_story","group_scrum_developer",1,0,0,0
+"access_scrum_review","scrum.sprint.review","model_scrum_sprint_review","group_scrum_product_owner",1,1,1,1
+"access_scrum_retros","scrum.sprint.retrospective","model_scrum_sprint_retrospective","group_scrum_product_owner",1,1,1,1

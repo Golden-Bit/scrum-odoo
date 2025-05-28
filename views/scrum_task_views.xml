@@ -1,0 +1,11 @@
+<!-- file: project_scrum/views/scrum_task_views.xml -->
+<record id="view_scrum_task_gantt" model="ir.ui.view">
+    <field name="name">project.task.scrum.gantt</field>
+    <field name="model">project.task</field>
+    <field name="arch" type="xml">
+        <gantt date_start="date_start" date_stop="date_deadline" group_by="story_id" progress="progress">
+            <field name="story_id"/>
+            <field name="name"/>
+        </gantt>
+    </field>
+</record>

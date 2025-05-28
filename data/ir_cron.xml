@@ -1,0 +1,14 @@
+<!-- file: project_scrum/data/ir_cron.xml -->
+<odoo>
+    <record id="ir_cron_scrum_burndown" model="ir.cron">
+        <field name="name">Aggiorna Burndown Chart</field>
+        <field name="model_id" ref="model_scrum_sprint"/>
+        <field name="state">code</field>
+        <field name="code">
+            model.compute_burndown_lines()
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+</odoo>
