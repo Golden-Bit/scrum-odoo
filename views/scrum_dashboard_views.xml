@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <record id="view_scrum_dashboard" model="ir.ui.view">
-    <field name="name">scrum.sprint.dashboard</field>
-    <field name="model">scrum.sprint</field>
-    <field name="type">dashboard</field>            <!-- must match your root tag -->
+  <!-- Vista QWeb per la dashboard Scrum -->
+  <record id="view_scrum_dashboard_qweb" model="ir.ui.view">
+    <field name="name">scrum.sprint.dashboard.qweb</field>
+    <field name="type">qweb</field>
     <field name="arch" type="xml">
-      <dashboard>
-        <group>
-          <widget name="graph"
-                  type="bar"
-                  model="scrum.sprint"
-                  title="Velocity per Sprint"
-                  measure="velocity"
-                  group_by="name"/>
-        </group>
-        <group>
-          <widget name="graph"
-                  type="line"
-                  model="scrum.burndown.line"
-                  title="Burndown Sprint"
-                  domain="[('sprint_id','=', active_id)]"
-                  measure="remaining_points"
-                  group_by="date"/>
-        </group>
-        <group>
-          <widget name="graph"
-                  type="pie"
-                  model="scrum.user.story"
-                  title="Stato User Stories"
-                  domain="[('sprint_id','=', active_id)]"
-                  measure="__count__"
-                  group_by="state"/>
-        </group>
-      </dashboard>
+      <t t-name="scrum.dashboard.template">
+        <div class="o_dashboard_container">
+          <!-- Grafico 1: Velocity per Sprint -->
+          <div class="o_dashboard_tile">
+            <h3>Velocity per Sprint</h3>
+            <widget
+              name="graph"
+              type="bar"
+              model="scrum.sprint"
+              measure="velocity"
+              group_by="name"/>
+          </div>
+          <!-- Grafico 2: Burndown Sprint -->
+          <div class="o_dashboard_tile">
+            <h3>Burndown Sprint</h3>
+            <widget
+              name="graph"
+              type="line"
+              model="scrum.burndown.line"
+              domain="[('sprint_id','=', active_id)]"
+              measure="remaining_points"
+              group_by="date"/>
+          </div>
+          <!-- Grafico 3: Stato User Stories -->
+          <div class="o_dashboard_tile">
+            <h3>Stato User Stories</h3>
+            <widget
+              name="graph"
+              type="pie"
+              model="scrum.user.story"
+              domain="[('sprint_id','=', active_id)]"
+              measure="__count__"
+              group_by="state"/>
+          </div>
+        </div>
+      </t>
     </field>
   </record>
 </odoo>

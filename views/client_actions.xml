@@ -1,0 +1,4 @@
+<record id="action_scrum_dashboard_client" model="ir.actions.client">
+  <field name="name">Scrum Dashboard</field>
+  <field name="tag">scrum_dashboard</field> <!-- questo tag verrà gestito da un widget JavaScript -->
+</record>

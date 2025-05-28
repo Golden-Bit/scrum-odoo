@@ -30,6 +30,7 @@ Gestione avanzata di progetti Scrum:
         'data/scrum_demo_data.xml',
         'data/ir_cron.xml',
         'views/scrum_menu.xml',
+        'views/client_actions.xml',
         'views/scrum_sprint_views.xml',
         'views/scrum_story_views.xml',
         'views/scrum_retrospective_views.xml',
