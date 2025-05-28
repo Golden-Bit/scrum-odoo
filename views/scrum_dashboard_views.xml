@@ -1,27 +1,43 @@
-<!-- file: project_scrum/views/scrum_dashboard_views.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-<record id="view_scrum_dashboard" model="ir.ui.view">
-    <field name="name">scrum.dashboard</field>
-    <field name="model">scrum.sprint</field>
-    <field name="arch" type="xml">
-        <dashboard>
-            <group>
-                <!-- Velocity: somma degli story point completati per sprint -->
-                <field name="velocity" string="Velocity Sprint" widget="one2many" icon="fa-tachometer-alt"/>
-            </group>
-            <group>
-                <!-- Burndown Chart: da dati del modello scrum.burndown.line -->
-                <widget name="graph" domain="[('sprint_id','=', active_id)]"
-                        context="{'measure': 'remaining_points', 'group_by': 'date'}"
-                        type="bar" title="Burndown Sprint"/>
-            </group>
-            <group>
-                <!-- Stato delle user story -->
-                <widget name="pie_chart" model="scrum.user.story"
-                        attrs="{'domain': [('sprint_id','=', active_id)]}"
-                        title="Stato User Stories" group_by="state"/>
-            </group>
-        </dashboard>
-    </field>
-</record>
+    <data>
+        <record id="view_scrum_dashboard" model="ir.ui.view">
+            <!-- Nome univoco della vista -->
+            <field name="name">scrum.sprint.dashboard</field>
+            <!-- Modello su cui si applica -->
+            <field name="model">scrum.sprint</field>
+            <!-- Tipo di vista: deve essere "form" per poter contenere un <dashboard> -->
+            <field name="type">form</field>
+            <!-- Architettura XML della vista -->
+            <field name="arch" type="xml">
+                <form string="Scrum Dashboard">
+                    <dashboard>
+                        <group>
+                            <!-- Velocity: somma degli story point completati per sprint -->
+                            <field name="velocity"
+                                   string="Velocity Sprint"
+                                   widget="one2many"
+                                   icon="fa-tachometer-alt"/>
+                        </group>
+                        <group>
+                            <!-- Burndown Chart: dati dal modello scrum.burndown.line -->
+                            <widget name="graph"
+                                    type="bar"
+                                    domain="[('sprint_id','=', active_id)]"
+                                    context="{'measure': 'remaining_points', 'group_by': 'date'}"
+                                    title="Burndown Sprint"/>
+                        </group>
+                        <group>
+                            <!-- Stato delle User Story: pie chart -->
+                            <widget name="pie_chart"
+                                    model="scrum.user.story"
+                                    attrs="{'domain': [('sprint_id','=', active_id)]}"
+                                    title="Stato User Stories"
+                                    group_by="state"/>
+                        </group>
+                    </dashboard>
+                </form>
+            </field>
+        </record>
+    </data>
 </odoo>
