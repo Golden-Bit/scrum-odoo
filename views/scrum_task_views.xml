@@ -1,4 +1,5 @@
 <!-- file: project_scrum/views/scrum_task_views.xml -->
+<odoo>
 <record id="view_scrum_task_gantt" model="ir.ui.view">
     <field name="name">project.task.scrum.gantt</field>
     <field name="model">project.task</field>
@@ -9,3 +10,4 @@
         </gantt>
     </field>
 </record>
+</odoo>
