@@ -2,8 +2,8 @@
 {
     'name': "Project Scrum Management",
     'version': '1.0',
-    'depends': ['base', 'project', 'planning', 'hr_timesheet'],
     'author': "YourName",
+    'license': 'LGPL-3',
     'category': 'Project Management',
     'summary': "Modulo Scrum avanzato per gestire progetti, sprint e user stories in Odoo",
     'description': """
@@ -17,6 +17,13 @@ Gestione avanzata di progetti Scrum:
 - Retrospective e Sprint Review
 - Integrazione con Timesheet e Planning
     """,
+    'depends': [
+        'base',
+        'project',
+        'planning',
+        'hr_timesheet',
+        'web_enterprise',  # for the dashboard view type in Odoo 18 Enterprise
+    ],
     'data': [
         'security/scrum_security.xml',
         'security/ir.model.access.csv',
@@ -35,5 +42,4 @@ Gestione avanzata di progetti Scrum:
     ],
     'installable': True,
     'application': True,
-    'license': 'LGPL-3',
 }
