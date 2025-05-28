@@ -29,7 +29,7 @@
         <record id="action_scrum_backlog" model="ir.actions.act_window">
             <field name="name">Product Backlog</field>
             <field name="res_model">scrum.user.story</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,form</field>
             <field name="domain">[('sprint_id','=', False)]</field>
             <field name="context">{'default_state': 'draft'}</field>
         </record>
@@ -43,7 +43,7 @@
         <record id="action_scrum_sprint" model="ir.actions.act_window">
             <field name="name">Sprint</field>
             <field name="res_model">scrum.sprint</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,form</field>
         </record>
         <menuitem id="menu_scrum_sprint_action"
                   name="Sprint"
