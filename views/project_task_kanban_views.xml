@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <record id="view_task_kanban_inherit_scrum" model="ir.ui.view">
-    <field name="name">project.task.kanban.scrum</field>
+  <record id="project_scrum.view_task_kanban_extend" model="ir.ui.view">
+    <field name="name">project.task.kanban.scrum.extend</field>
     <field name="model">project.task</field>
     <!-- ereditiamo la vista kanban standard dei task -->
     <field name="inherit_id" ref="project.view_task_kanban"/>
     <field name="arch" type="xml">
       <templates>
-        <!--
-          il template da estendere si chiama "kanban-box"
-          (lo trovi in web/static/src/xml/kanban.xml
-           cercando <t t-name="kanban-box">)
-        -->
+        <!-- estendiamo il template "kanban-box" -->
         <t t-inherit="kanban-box" t-inherit-mode="extension">
-          <!-- posizioniamo story_points subito dopo il blocco delle proprietà principali -->
+          <!-- inseriamo subito dopo il blocco delle proprietà principali -->
           <xpath expr="//div[@name='task_properties']" position="after">
+            <!-- storia punti -->
             <div class="o_field_number_container">
               <field name="story_points" class="o_field_number"/>
+            </div>
+            <!-- sprint -->
+            <div class="o_field_many2one_container">
+              <field name="sprint_id" widget="many2one" options="{'no_open': True}"/>
             </div>
           </xpath>
         </t>
