@@ -3,17 +3,24 @@
   <record id="view_task_kanban_inherit_scrum" model="ir.ui.view">
     <field name="name">project.task.kanban.scrum</field>
     <field name="model">project.task</field>
-    <!-- Ereditare la vista Kanban standard dei Task -->
+    <!-- ereditiamo la vista kanban standard dei task -->
     <field name="inherit_id" ref="project.view_task_kanban"/>
     <field name="arch" type="xml">
-      <!-- Inseriamo story_points all’inizio del footer -->
-      <xpath expr="//article/footer" position="inside">
-        <!-- Wrapper per allineamento a destra -->
-        <div class="ms-auto">
-          <field name="story_points"
-                 modifiers="{'invisible': [['project_type','!=','scrum']]}"/>
-        </div>
-      </xpath>
+      <templates>
+        <!--
+          il template da estendere si chiama "kanban-box"
+          (lo trovi in web/static/src/xml/kanban.xml
+           cercando <t t-name="kanban-box">)
+        -->
+        <t t-inherit="kanban-box" t-inherit-mode="extension">
+          <!-- posizioniamo story_points subito dopo il blocco delle proprietà principali -->
+          <xpath expr="//div[@name='task_properties']" position="after">
+            <div class="o_field_number_container">
+              <field name="story_points" class="o_field_number"/>
+            </div>
+          </xpath>
+        </t>
+      </templates>
     </field>
   </record>
 </odoo>
