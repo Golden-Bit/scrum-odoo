@@ -11,4 +11,6 @@
         'views/project_task_kanban_views.xml',
     ],
     'license': 'LGPL-3',
+    'installable': True,
+    'application': True,
 }
