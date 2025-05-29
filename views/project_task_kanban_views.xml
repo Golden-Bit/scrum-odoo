@@ -3,30 +3,30 @@
   <record id="view_task_kanban_inherit_scrum" model="ir.ui.view">
     <field name="name">project.task.kanban.scrum</field>
     <field name="model">project.task</field>
-    <field name="inherit_id" ref="project.view_task_kanban"/>
+    <!-- 1) Declare the new fields for QWeb -->
     <field name="arch" type="xml">
-      <!-- 1) carico i campi aggiuntivi -->
-      <xpath expr="//kanban" position="inside">
+      <kanban default_group_by="stage_id"
+              class="o_kanban_small_column o_kanban_project_tasks"
+              on_create="quick_create"
+              quick_create_view="project.quick_create_task_form">
         <field name="story_points"/>
         <field name="sprint_id"/>
-      </xpath>
-      <templates>
-        <t t-inherit="kanban-box" t-inherit-mode="extension">
-          <!-- 2) inserisco i valori nella card -->
-          <xpath expr="//footer" position="before">
-            <div class="o_field_number_container me-2">
-              <t t-if="record.story_points.raw_value">
-                <span class="o_field_number">
-                  <field name="story_points"/>
-                </span>
-              </t>
-            </div>
-            <div t-if="record.sprint_id.raw_value" class="o_field_many2one">
-              <field name="sprint_id"/>
-            </div>
-          </xpath>
-        </t>
-      </templates>
+        <!-- other existing <field>… -->
+        <templates>
+          <!-- 2) Inherit correct template name -->
+          <t t-inherit="card" t-inherit-mode="extension">
+            <!-- 3) Use correct XPath on the <field> -->
+            <xpath expr="//field[@name='task_properties']" position="after">
+              <div class="o_field_number_container">
+                <field name="story_points" class="o_field_number"/>
+              </div>
+              <div class="o_field_many2one_container">
+                <field name="sprint_id"/>
+              </div>
+            </xpath>
+          </t>
+        </templates>
+      </kanban>
     </field>
   </record>
 </odoo>
