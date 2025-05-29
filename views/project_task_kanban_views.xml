@@ -1,0 +1,13 @@
+<!-- project_scrum/views/project_task_kanban_views.xml -->
+<odoo>
+    <record id="view_task_kanban_inherit_scrum" model="ir.ui.view">
+        <field name="name">project.task.kanban.scrum</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_kanban_bottom_left']" position="inside">
+                <field name="story_points"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

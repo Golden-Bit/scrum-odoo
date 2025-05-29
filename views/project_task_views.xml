@@ -1,0 +1,20 @@
+<!-- project_scrum/views/project_task_views.xml -->
+<odoo>
+    <record id="view_task_form_inherit_scrum" model="ir.ui.view">
+        <field name="name">project.task.form.scrum</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <!-- Inseriamo i nuovi campi in fondo alla sezione principale -->
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <field name="story_points"
+                           attrs="{'invisible': [('project_type','!=','scrum')]}"
+                           class="o_td_label"/>
+                    <field name="sprint_id"
+                           attrs="{'invisible': [('project_type','!=','scrum')]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

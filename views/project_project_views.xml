@@ -1,0 +1,14 @@
+<!-- project_scrum/views/project_project_views.xml -->
+<odoo>
+    <record id="view_project_form_inherit_scrum" model="ir.ui.view">
+        <field name="name">project.project.form.scrum</field>
+        <field name="model">project.project</field>
+        <!-- Ereditiamo la vista form di project.project (ref da definire a seconda dell'ID esatto) -->
+        <field name="inherit_id" ref="project.view_project_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="project_type"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
