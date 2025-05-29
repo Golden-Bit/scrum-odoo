@@ -4,7 +4,7 @@
     <field name="name">project.task.form.scrum</field>
     <field name="model">project.task</field>
     <!-- Ereditare la vista form standard dei Task -->
-    <field name="inherit_id" ref="project.task.form"/>
+    <field name="inherit_id" ref="project.view_task_form2"/>
     <field name="arch" type="xml">
       <xpath expr="//sheet" position="inside">
         <group>

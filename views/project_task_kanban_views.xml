@@ -4,7 +4,7 @@
     <field name="name">project.task.kanban.scrum</field>
     <field name="model">project.task</field>
     <!-- Ereditare la vista kanban standard dei Task -->
-    <field name="inherit_id" ref="project.task.kanban"/>
+    <field name="inherit_id" ref="project.view_task_kanban"/>
     <field name="arch" type="xml">
       <xpath expr="//div[@class='oe_kanban_bottom_left']" position="inside">
         <field name="story_points"/>
