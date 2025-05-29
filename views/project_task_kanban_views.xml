@@ -6,16 +6,12 @@
     <!-- Ereditare la vista Kanban standard dei Task -->
     <field name="inherit_id" ref="project.view_task_kanban"/>
     <field name="arch" type="xml">
-      <!-- Individuiamo il contenitore principale della card -->
-      <xpath expr="//div[contains(@class,'o_project_kanban_main')]" position="inside">
-        <!-- Aggiungiamo una nuova “box” accanto alle altre -->
-        <div class="o_project_kanban_box me-1">
-          <t t-if="record.project_type.raw_value === 'scrum'">
-            <!-- Badge con i punti storia -->
-            <span class="o_badge o_badge_info">
-              <t t-esc="record.story_points.raw_value or 0"/>
-            </span>
-          </t>
+      <!-- Inseriamo story_points all’inizio del footer -->
+      <xpath expr="//article/footer" position="inside">
+        <!-- Wrapper per allineamento a destra -->
+        <div class="ms-auto">
+          <field name="story_points"
+                 modifiers="{'invisible': [['project_type','!=','scrum']]}"/>
         </div>
       </xpath>
     </field>
