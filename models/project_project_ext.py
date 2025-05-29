@@ -6,5 +6,4 @@ class ProjectProject(models.Model):
     project_type = fields.Selection([
         ('standard', 'Standard'),
         ('scrum', 'Scrum'),
-        ('agile', 'Agile')
     ], string='Tipo di Progetto', default='standard')

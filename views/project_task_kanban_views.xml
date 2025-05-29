@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <record id="project_scrum.view_task_kanban_extend" model="ir.ui.view">
-    <field name="name">project.task.kanban.scrum.extend</field>
+  <record id="view_task_kanban_inherit_scrum" model="ir.ui.view">
+    <field name="name">project.task.kanban.scrum</field>
     <field name="model">project.task</field>
-    <!-- ereditiamo la vista kanban standard dei task -->
     <field name="inherit_id" ref="project.view_task_kanban"/>
     <field name="arch" type="xml">
+      <!-- 1) carico i campi aggiuntivi -->
+      <xpath expr="//kanban" position="inside">
+        <field name="story_points"/>
+        <field name="sprint_id"/>
+      </xpath>
       <templates>
-        <!-- estendiamo il template "kanban-box" -->
         <t t-inherit="kanban-box" t-inherit-mode="extension">
-          <!-- inseriamo subito dopo il blocco delle proprietà principali -->
-          <xpath expr="//div[@name='task_properties']" position="after">
-            <!-- storia punti -->
-            <div class="o_field_number_container">
-              <field name="story_points" class="o_field_number"/>
+          <!-- 2) inserisco i valori nella card -->
+          <xpath expr="//footer" position="before">
+            <div class="o_field_number_container me-2">
+              <t t-if="record.story_points.raw_value">
+                <span class="o_field_number">
+                  <field name="story_points"/>
+                </span>
+              </t>
             </div>
-            <!-- sprint -->
-            <div class="o_field_many2one_container">
-              <field name="sprint_id" widget="many2one" options="{'no_open': True}"/>
+            <div t-if="record.sprint_id.raw_value" class="o_field_many2one">
+              <field name="sprint_id"/>
             </div>
           </xpath>
         </t>
