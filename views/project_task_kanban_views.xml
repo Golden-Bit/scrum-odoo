@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <!-- project_scrum/views/project_task_kanban_views.xml -->
-  <record id="project_scrum.view_task_kanban_inherit_scrum" model="ir.ui.view">
+  <record id="view_task_kanban_inherit_scrum" model="ir.ui.view">
     <field name="name">project.task.kanban.scrum</field>
     <field name="model">project.task</field>
-    <!-- Inherit the core task-kanban view -->
-    <field name="inherit_id" ref="project.view_task_kanban"/><!-- :contentReference[oaicite:1]{index=1} -->
+    <!-- Ereditare la vista Kanban standard dei Task -->
+    <field name="inherit_id" ref="project.view_task_kanban"/>
     <field name="arch" type="xml">
-      <!-- In Odoo 18 the bottom-left container class is now o_kanban_bottom_left -->
-      <xpath expr="//div[contains(@class,'o_kanban_bottom_left')]" position="inside">
-        <field name="story_points"/>
+      <!-- Individuiamo il contenitore principale della card -->
+      <xpath expr="//div[contains(@class,'o_project_kanban_main')]" position="inside">
+        <!-- Aggiungiamo una nuova “box” accanto alle altre -->
+        <div class="o_project_kanban_box me-1">
+          <t t-if="record.project_type.raw_value === 'scrum'">
+            <!-- Badge con i punti storia -->
+            <span class="o_badge o_badge_info">
+              <t t-esc="record.story_points.raw_value or 0"/>
+            </span>
+          </t>
+        </div>
       </xpath>
     </field>
   </record>
