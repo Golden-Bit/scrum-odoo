@@ -1,4 +1,4 @@
-<!-- project_scrum/views/project_task_views.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="view_task_form_inherit_scrum" model="ir.ui.view">
         <field name="name">project.task.form.scrum</field>
