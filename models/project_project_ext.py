@@ -1,52 +1,49 @@
-from odoo import api, fields, models, _
+# project_scrum/models/project_project_ext.py
+from odoo import api, fields, models
 
 class ProjectProject(models.Model):
     _inherit = 'project.project'
 
     project_type = fields.Selection([
         ('standard', 'Standard'),
-        ('scrum', 'Scrum'),
+        ('scrum',    'Scrum'),
     ], string='Tipo di Progetto', default='standard')
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        projects = super().create(vals_list)
-        # Dopo creazione, genera fasi se è Scrum
-        for project in projects.filtered(lambda p: p.project_type == 'scrum'):
-            project._ensure_scrum_stages()
-        return projects
 
     def write(self, vals):
         res = super().write(vals)
-        # Se cambio tipo in “scrum”, genera fasi
+        # only when you switch to Scrum
         if 'project_type' in vals:
             for project in self.filtered(lambda p: p.project_type == 'scrum'):
                 project._ensure_scrum_stages()
         return res
 
     def _ensure_scrum_stages(self):
-        """Assicura che il progetto abbia le 7 fasi Scrum nell’ordine corretto."""
+        """Create / reorder Scrum-specific stages on project.task.type."""
         Stage = self.env['project.task.type']
-        sequence_map = {
-            'Backlog': 1,
-            'Task Todo': 2,
-            'Subtask Todo': 3,
-            'Task In Progress': 4,
-            'Subtask In Progress': 5,
-            'Task Done': 6,
-            'Subtask Done': 7,
-        }
-        # Estrae nomi già esistenti nel progetto
-        existing = self.stage_ids.mapped('name')
-        # Crea quelle mancanti e assegna la sequence
-        for name, seq in sequence_map.items():
-            stage = self.stage_ids.filtered(lambda s: s.name == name)
+        SCRUM_STAGES = [
+            'Backlog',
+            'Task Todo',
+            'Subtask Todo',
+            'Task In Progress',
+            'Subtask In Progress',
+            'Task Done',
+            'Subtask Done',
+        ]
+        # find all stages already linked to this project
+        existing = Stage.search([('project_ids', 'in', self.id)])
+        existing_names = existing.mapped('name')
+        for idx, name in enumerate(SCRUM_STAGES, start=1):
+            stage = existing.filtered(lambda s: s.name == name)
             if stage:
-                # Riassegna comunque la sequence per garantire l’ordine
-                stage.sequence = seq
+                # just update sequence
+                stage.sequence = idx
+                # ensure still linked
+                if self not in stage.project_ids:
+                    stage.write({'project_ids': [(4, self.id)]})
             else:
+                # create and link
                 Stage.create({
-                    'name': name,
-                    'sequence': seq,
+                    'name':        name,
+                    'sequence':    idx,
                     'project_ids': [(4, self.id)],
                 })
