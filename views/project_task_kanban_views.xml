@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-<record id="view_task_kanban_inherit_scrum" model="ir.ui.view">
-  <field name="name">project.task.kanban.scrum</field>
-  <field name="model">project.task</field>
-  <field name="inherit_id" ref="project.view_task_kanban"/>
-  <field name="arch" type="xml">
-    <!-- 1) Aggiungi i <field> al kanban root -->
-    <xpath expr="//kanban" position="inside">
-      <field name="story_points"/>
-      <field name="sprint_id"/>
-    </xpath>
-    <!-- 2) Estendi il template QWeb "card" -->
-    <xpath expr="//templates/t[@t-name='card']" position="inside">
-      <xpath expr="//field[@name='task_properties']" position="after">
-        <div class="o_field_number_container">
-          <field name="story_points" class="o_field_number"/>
-        </div>
-        <div class="o_field_many2one_container">
-          <field name="sprint_id"/>
-        </div>
+  <record id="view_task_kanban_inherit_scrum" model="ir.ui.view">
+    <field name="name">project.task.kanban.scrum</field>
+    <field name="model">project.task</field>
+    <field name="inherit_id" ref="project.view_task_kanban"/>
+    <field name="arch" type="xml">
+      <!-- 1) Rende disponibili i dati in QWeb -->
+      <xpath expr="//kanban" position="inside">
+        <field name="project_type"/>
+        <field name="story_points"/>
+        <field name="sprint_id"/>
       </xpath>
-    </xpath>
-  </field>
-</record>
+      <templates>
+        <!-- 2) Estendi il template 'card' vero -->
+        <t t-inherit="card" t-inherit-mode="extension">
+          <!-- 3) Inserisci subito dopo le proprietà standard -->
+          <xpath expr="//field[@name='task_properties']" position="after">
+            <!-- 4) Mostra solo per progetti Scrum -->
+            <t t-if="record.project_type.raw_value === 'scrum'">
+              <div class="o_field_number_container">
+                <field name="story_points" class="o_field_number"/>
+              </div>
+              <div class="o_field_many2one_container">
+                <field name="sprint_id"/>
+              </div>
+            </t>
+          </xpath>
+        </t>
+      </templates>
+    </field>
+  </record>
 </odoo>

@@ -6,13 +6,10 @@
     <field name="inherit_id" ref="project.view_task_form2"/>
     <field name="arch" type="xml">
       <xpath expr="//sheet" position="inside">
-        <group>
-          <!-- campo Story Points visibile solo se project_type = 'scrum' -->
-          <field name="story_points"
-                 modifiers="{'invisible': [['project_type','!=','scrum']]}"/>
-          <!-- campo Sprint visibile solo se project_type = 'scrum' -->
-          <field name="sprint_id"
-                 modifiers="{'invisible': [['project_type','!=','scrum']]}"/>
+        <!-- Raggruppo visibile solo se project_type = 'scrum' -->
+        <group attrs="{'invisible': [('project_type','!=','scrum')]}">
+          <field name="story_points"/>
+          <field name="sprint_id"/>
         </group>
       </xpath>
     </field>
