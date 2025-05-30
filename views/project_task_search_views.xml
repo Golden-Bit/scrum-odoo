@@ -3,18 +3,14 @@
   <record id="view_task_search_inherit_sprint" model="ir.ui.view">
     <field name="name">project.task.search.inherit.sprint</field>
     <field name="model">project.task</field>
-    <!-- 1) Ereditiamo la vista di ricerca esistente -->
-    <field name="inherit_id" ref="project.view_task_search"/>
+    <!-- 1) Ereditare la search view esatta -->
+    <field name="inherit_id" ref="project.view_task_search_form_project_base"/>
     <field name="arch" type="xml">
-      <!-- 2) Usiamo @name per individuare il punto di inserimento -->
-      <xpath expr="//filter[@name='my_tasks']" position="after">
-        <!-- 3) Aggiungiamo il filtro per sprint_id -->
-        <filter
-          name="filter_by_sprint"
-          string="Sprint"
-          domain="[('sprint_id','=', context.get('search_default_sprint_id'))]"
-          context="{'search_default_sprint_id': active_id}"
-        />
+      <!-- 2) Posizioniamo il filtro subito dopo gli altri filtri standard -->
+      <xpath expr="//filter[@name='filter_my_tasks']" position="after">
+        <filter name="filter_by_sprint"
+                string="Sprint"
+                domain="[('sprint_id','=', self)]"/>
       </xpath>
     </field>
   </record>
