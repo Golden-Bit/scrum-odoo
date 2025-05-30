@@ -9,11 +9,6 @@ class ProjectProject(models.Model):
         ('scrum',    'Scrum'),
     ], string='Tipo di Progetto', default='standard')
 
-    @api.model
-    def get_latest_sprint_id(self):
-        latest_sprint = self.env['project.sprint'].search([], order='sequence desc', limit=1)
-        return latest_sprint.id if latest_sprint else False
-
     def write(self, vals):
         res = super().write(vals)
         # only when you switch to Scrum
