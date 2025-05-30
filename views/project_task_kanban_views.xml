@@ -9,6 +9,7 @@
       <xpath expr="//kanban" position="inside">
         <field name="story_points"/>
         <field name="sprint_id"/>
+        <field name="project_type"/>
       </xpath>
       <!-- 2) Extend the QWeb 'card' template -->
       <xpath expr="//templates/t[@t-name='card']" position="inside">
