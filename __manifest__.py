@@ -10,6 +10,7 @@
         'views/project_task_views.xml',
         'views/project_task_kanban_views.xml',
         'views/project_task_search_views.xml',
+        '',
     ],
     'license': 'LGPL-3',
     'installable': True,

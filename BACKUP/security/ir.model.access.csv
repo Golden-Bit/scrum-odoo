@@ -1,3 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_project_sprint_user","access.project.sprint","project_scrum.model_project_sprint","base.group_user",1,1,1,1
-"access_project_task_scrum","access.project.task","project.model_project_task","base.group_user",1,1,1,1
